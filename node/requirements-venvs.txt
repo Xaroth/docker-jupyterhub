@@ -1,0 +1,14 @@
+ipykernel==${IPYKERNEL_VERSION}; python_version > '3.4'
+ipykernel; python_version < '2.8'
+
+ipyparallel; python_version > '3.4'
+scipy; python_version > '3.4'
+pandas; python_version > '3.4'
+numpy; python_version > '3.4'
+bokeh; python_version > '3.4'
+sqlalchemy
+beautifulsoup4
+cython
+Markdown
+Pillow
+six

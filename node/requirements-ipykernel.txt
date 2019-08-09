@@ -1,0 +1,5 @@
+jupyterhub==${JUPYTERHUB_VERSION}
+notebook==${NOTEBOOK_VERSION}
+ipykernel==${IPYKERNEL_VERSION}; python_version > '3.4'
+
+ipywidgets==7.5.1
