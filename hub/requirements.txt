@@ -1,0 +1,5 @@
+jupyterhub-ldapauthenticator>=1.2.2,<1.3.0
+dockerspawner>=0.11.1,<0.12.0
+oauthenticator>=0.9.0,<0.10.0
+jupyterhub==${JUPYTERHUB_VERSION}
+notebook==${NOTEBOOK_VERSION}
