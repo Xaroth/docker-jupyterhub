@@ -3,6 +3,8 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 LABEL author="https://github.com/Xaroth"
 
+USER root
+
 ADD . /tmp/
 
 ARG JUPYTERHUB_VERSION=1.0.0 
@@ -51,8 +53,9 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     SHELL=/bin/bash
 
+VOLUME /data
 VOLUME /notebooks
-WORKDIR /notebooks
+WORKDIR /data
 
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["jupyterhub"]

@@ -3,6 +3,8 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 LABEL author="https://github.com/Xaroth"
 
+USER root
+
 ADD . /tmp/
 
 ARG JUPYTERHUB_VERSION=1.0.0 
@@ -10,8 +12,10 @@ ARG NOTEBOOK_VERSION=6.0.0
 ARG IPYKERNEL_VERSION=5.1.2
 ARG TINI_VERSION=0.18.0
 
-ARG HOME="/root"
-ARG PROFILE="$HOME/.profile"
+ARG NB_USER="jupyter"
+ARG NB_GROUP="jupyter"
+ARG NB_UID="900"
+ARG NB_GID="900"
 
 ENV JUPYTERHUB_VERSION=${JUPYTERHUB_VERSION}
 ENV NOTEBOOK_VERSION=${NOTEBOOK_VERSION}
@@ -39,6 +43,8 @@ RUN apt-get update && apt-get -yq dist-upgrade && apt-get install -yq --no-insta
         python3-pip \
         python3-setuptools \
         software-properties-common \
+    && groupadd -g $NB_GID $NB_GROUP \
+    && useradd -m -s /bin/bash -N -g $NB_GID -u $NB_UID $NB_USER \
     && (curl -sL https://deb.nodesource.com/setup_12.x | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 bash -) \
     && apt-get update && apt-get install -yq --no-install-recommends \
         nodejs \
@@ -64,8 +70,8 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8 \
     SHELL=/bin/bash
 
+USER $NB_UID
 VOLUME /notebooks
-WORKDIR /notebooks
 
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["jupyterhub-singleuser", "--ip=0.0.0.0"]

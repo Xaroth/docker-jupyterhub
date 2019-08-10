@@ -49,6 +49,9 @@ for ver in $VERSIONS; do
     ${VENV_DIR}/${ver}/bin/python -m ipykernel install --prefix=${IPYKERNEL_VENV} --name "${ver}" --display-name "${ver^} (${DISPLAY_VERSION})"
 done
 
+echo "Removing the default kernel"
+rm -rf ${IPYKERNEL_VENV}/share/jupyter/kernels/python3/
+
 apt-get remove -yq $REM_PKG
 
 for ex in $EXECUTABLES; do
