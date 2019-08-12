@@ -74,4 +74,4 @@ USER $NB_UID
 VOLUME /notebooks
 
 ENTRYPOINT ["tini", "-g", "--"]
-CMD ["jupyterhub-singleuser", "--ip=0.0.0.0"]
+CMD ["jupyterhub-singleuser", "--KernelSpecManager.ensure_native_kernel=False"]
